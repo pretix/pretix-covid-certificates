@@ -1,0 +1,44 @@
+{% extends "pretixcontrol/event/settings_base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% block inside %}
+    <h1>{% trans "Digital COVID Certificate Validation" %}</h1>
+    <div class="alert alert-info">
+        <p>
+            {% blocktrans trimmed %}
+                With more and more locations opening up in the aftermath of the Corona crisis, many event organizers
+                face the challenge of verifying the health status of their participants. Some public health authorities
+                even mandate event organizers to make sure, that only people of a certain status are allowed on the
+                premises.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans trimmed  %}
+                Using pretixSCAN on Android (and only on Android), you can now scan a variety of vaccination passports
+                and COVID test certificates. The information therein is validated and displayed on the screen of your
+                device, allowing for a faster and more comfortable checkin experience.
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans trimmed  %}
+                No personal identifiable information (PII) is collected through this process. pretix will however save
+                the validity of the proof shown in order to minimize the revalidation effort necessary.
+            {% endblocktrans %}
+        </p>
+    </div>
+    <div class="alert alert-warning">
+        {% blocktrans trimmed  %}
+            Validating digital vaccination passports and test result certificates is only possible with pretixSCAN on
+            Android, starting with version 1.11.0!
+        {% endblocktrans %}
+    </div>
+    <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form layout="horizontal" %}
+        <div class="form-group submit-group">
+            <button type="submit" class="btn btn-primary btn-save">
+                {% trans "Save" %}
+            </button>
+        </div>
+    </form>
+{% endblock %}

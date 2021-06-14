@@ -1,0 +1,5 @@
+recursive-include pretix_covid_certificates/static *
+recursive-include pretix_covid_certificates/templates *
+recursive-include pretix_covid_certificates/locale *
+include LICENSE
+exclude .gitlab-ci.yml
