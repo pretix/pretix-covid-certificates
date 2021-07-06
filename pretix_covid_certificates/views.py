@@ -144,11 +144,6 @@ class CovidCertificatesSettingsForm(SettingsForm):
         required=False,
     )
 
-    covid_certificates_accept_baercode = forms.BooleanField(
-        label=_('Accept BärCode'),
-        required=False,
-    )
-
     covid_certificates_accept_manual = forms.BooleanField(
         label=_('Accept manual override'),
         required=False,

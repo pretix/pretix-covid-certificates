@@ -46,5 +46,4 @@ settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown'
 settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_min', 0, int)
 settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_max', 24, int)
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
-settings_hierarkey.add_default('covid_certificates_accept_baercode', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
