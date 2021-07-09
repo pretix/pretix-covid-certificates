@@ -3,9 +3,11 @@ from django.urls import resolve, reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _, gettext_noop  # NoQA
 from django_scopes import scopes_disabled
+from rest_framework import serializers
+
 from pretix.base.models import QuestionAnswer
 from pretix.base.settings import settings_hierarkey
-from pretix.base.signals import periodic_task
+from pretix.base.signals import periodic_task, api_event_settings_fields
 from pretix.control.signals import nav_event_settings
 from pretix.helpers.periodic import minimum_interval
 
@@ -31,6 +33,26 @@ def nav_event_settings(sender, request, **kwargs):
 @minimum_interval(minutes_after_success=60)
 def periodic_task(sender, **kwargs):
     QuestionAnswer.objects.filter(CovidCertificateExpiry__expiry__lte=now()).delete()
+
+
+@receiver(api_event_settings_fields, dispatch_uid="pretix_covid_certificates_api_event_settings_fields")
+def api_event_settings_fields(sender, **kwargs):
+    return {
+        'covid_certificates_allow_vaccinated': serializers.BooleanField(required=False),
+        'covid_certificates_allow_vaccinated_min': serializers.IntegerField(required=False),
+        'covid_certificates_allow_vaccinated_max': serializers.IntegerField(required=False),
+        'covid_certificates_allow_cured': serializers.BooleanField(required=False),
+        'covid_certificates_allow_cured_min': serializers.IntegerField(required=False),
+        'covid_certificates_allow_cured_max': serializers.IntegerField(required=False),
+        'covid_certificates_allow_tested_pcr': serializers.BooleanField(required=False),
+        'covid_certificates_allow_tested_pcr_min': serializers.IntegerField(required=False),
+        'covid_certificates_allow_tested_pcr_max': serializers.IntegerField(required=False),
+        'covid_certificates_allow_tested_antigen_unknown': serializers.BooleanField(required=False),
+        'covid_certificates_allow_tested_antigen_unknown_min': serializers.IntegerField(required=False),
+        'covid_certificates_allow_tested_antigen_unknown_max': serializers.IntegerField(required=False),
+        'covid_certificates_accept_eudgc': serializers.BooleanField(required=False),
+        'covid_certificates_accept_manual': serializers.BooleanField(required=False),
+    }
 
 
 settings_hierarkey.add_default('covid_certificates_allow_vaccinated', False, bool)
