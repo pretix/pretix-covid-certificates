@@ -3,13 +3,12 @@ from django.urls import resolve, reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _, gettext_noop  # NoQA
 from django_scopes import scopes_disabled
-from rest_framework import serializers
-
 from pretix.base.models import QuestionAnswer
 from pretix.base.settings import settings_hierarkey
-from pretix.base.signals import periodic_task, api_event_settings_fields
+from pretix.base.signals import api_event_settings_fields, periodic_task
 from pretix.control.signals import nav_event_settings
 from pretix.helpers.periodic import minimum_interval
+from rest_framework import serializers
 
 
 @receiver(nav_event_settings, dispatch_uid='pretix_covid_certificates_nav_event_settings')
