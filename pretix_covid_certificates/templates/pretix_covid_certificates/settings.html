@@ -13,24 +13,35 @@
             {% endblocktrans %}
         </p>
         <p>
-            {% blocktrans trimmed  %}
+            {% blocktrans trimmed %}
                 Using pretixSCAN on Android (and only on Android), you can now scan a variety of vaccination passports
                 and COVID test certificates. The information therein is validated and displayed on the screen of your
                 device, allowing for a faster and more comfortable checkin experience.
             {% endblocktrans %}
         </p>
         <p>
-            {% blocktrans trimmed  %}
+            {% blocktrans trimmed %}
                 No personal identifiable information (PII) is collected through this process. pretix will however save
                 the validity of the proof shown in order to minimize the revalidation effort necessary.
             {% endblocktrans %}
         </p>
     </div>
     <div class="alert alert-warning">
-        {% blocktrans trimmed  %}
-            Validating digital vaccination passports and test result certificates is only possible with pretixSCAN on
-            Android, starting with version 1.11.0!
-        {% endblocktrans %}
+        <p>
+            {% blocktrans trimmed %}
+                Validating digital vaccination passports and test result certificates is only possible with pretixSCAN
+                on
+                Android, starting with version 1.11.0!
+            {% endblocktrans %}
+        </p>
+        <p>
+            {% blocktrans trimmed %}
+                Our validation algorithm for digital certificates is based on the official German validation apps.
+                Please make sure to regularly update pretixSCAN to make sure you do not miss any changes. Also, if you
+                are based in another country, we don't know how well the German validation rules map to the local
+                regulations in your country. Please test carefully if this is appropriate for you to use.
+            {% endblocktrans %}
+        </p>
     </div>
     <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
         {% csrf_token %}
