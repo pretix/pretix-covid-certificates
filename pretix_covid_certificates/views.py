@@ -127,7 +127,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
     )
 
     covid_certificates_allow_tested_antigen_unknown_max = forms.IntegerField(
-        label=_('Antingen/other tested at most'),
+        label=_('Antigen/other tested at most'),
         required=True,
         min_value=0,
         widget=forms.NumberInput(
@@ -150,6 +150,15 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('This options allows your staff to manually set the vaccination status for a participant - for '
                     'example if they present their yellow vaccination booklet or any other form of certificate which '
                     'cannot be processed automatically.')
+    )
+
+    covid_certificates_record_proof = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.')
     )
 
 

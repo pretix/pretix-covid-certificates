@@ -52,6 +52,7 @@ def api_event_settings_fields(sender, **kwargs):
         'covid_certificates_allow_tested_antigen_unknown_max': serializers.IntegerField(required=False),
         'covid_certificates_accept_eudgc': serializers.BooleanField(required=False),
         'covid_certificates_accept_manual': serializers.BooleanField(required=False),
+        'covid_certificates_record_proof': serializers.BooleanField(required=False),
     }
 
 
@@ -70,3 +71,4 @@ settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_
 settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_max', 48, int)  # TR_DE_002 / TR_003
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
+settings_hierarkey.add_default('covid_certificates_record_proof', False, bool)
