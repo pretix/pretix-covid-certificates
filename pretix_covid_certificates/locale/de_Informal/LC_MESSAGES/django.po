@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 19:01+0100\n"
+"POT-Creation-Date: 2021-07-12 10:49+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Martin Gross\n"
 "Language-Team: \n"
@@ -10,3 +10,216 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: pretix_covid_certificates/__init__.py:16
+msgid "Digital Covid Certificates"
+msgstr "Digitale Covid Zertifikate"
+
+#: pretix_covid_certificates/__init__.py:18
+msgid ""
+"This plugin allows to configure the validation of COVID test- and "
+"vaccination certificates using pretixSCAN for Android"
+msgstr ""
+"Diese Erweiterung erlaubt die Konfiguration der Abfrage von COVID "
+"Test- und Impfzertifikaten bei Nutzung von pretixSCAN auf Android"
+
+#: pretix_covid_certificates/signals.py:21
+#: pretix_covid_certificates/views.py:181
+msgid "COVID Certificate Validation"
+msgstr "COVID Zertifikat Validierung"
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:5
+msgid "Digital COVID Certificate Validation"
+msgstr "Digitale COVID Zertifikat Validierung"
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:8
+msgid ""
+"With more and more locations opening up in the aftermath of the Corona "
+"crisis, many event organizers face the challenge of verifying the health "
+"status of their participants. Some public health authorities even mandate "
+"event organizers to make sure, that only people of a certain status are "
+"allowed on the premises."
+msgstr ""
+"Im Zuge der Wiederöffnung von Einrichtungen im Nachgang der Corona-Krise, "
+"stehen viele Veranstalter vor der Herausforderung den Gesundheitszustand "
+"der Besucher zu überprüfen. Einige Gesundheitsbehörden verpflichten sogar "
+"Veranstalter sicherzustellen, dass nur Teilnehmer mit gewissen Stati "
+"Zugang erlaubt wird."
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:16
+msgid ""
+"Using pretixSCAN on Android (and only on Android), you can now scan a "
+"variety of vaccination passports and COVID test certificates. The "
+"information therein is validated and displayed on the screen of your device, "
+"allowing for a faster and more comfortable checkin experience."
+msgstr ""
+"Mit Hilfe von pretixSCAN auf Android-Geräte (und auch nur auf Android-Geräten) "
+"können eine Vielzahl von Impfnachweisen und COVID Testzertifikaten gescannt "
+"werden. Der Inhalt der Zertifikate wird validiert und das Ergebnis auf dem "
+"Bildschirm angezeigt. Dies erlaubt einen einfacheren und schnelleren Check-In."
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:23
+msgid ""
+"No personal identifiable information (PII) is collected through this "
+"process. pretix will however save the validity of the proof shown in order "
+"to minimize the revalidation effort necessary."
+msgstr ""
+"Bei Nutzung diesen Prozesses werden keine personenbezogenen Daten gespeichert. "
+"pretix wird jedoch die Gültigkeit des vorgezeigten Nachweises speichern um "
+"wiederholte Überprüfungen überflüssig zu machen."
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:30
+msgid ""
+"Validating digital vaccination passports and test result certificates is "
+"only possible with pretixSCAN on Android, starting with version 1.11.0!"
+msgstr ""
+"Die Validierung von Impfnachweisen und Testzertifikaten ist nur mit "
+"pretixSCAN auf Android ab Version 1.11.0 möglich."
+
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:40
+msgid "Save"
+msgstr "Speichern"
+
+#: pretix_covid_certificates/views.py:13
+msgid "Allow vaccinated"
+msgstr "Erlaube Impfungen"
+
+#: pretix_covid_certificates/views.py:15
+msgid ""
+"Only participants that have received the complete treatment (two doses with "
+"the exception of designated single-dose vaccines) are deemed completely "
+"vaccinated."
+msgstr ""
+"Nur Teilnehmer die eine volle Impfserie (i.d.R. zwei Impfdosen, mit Ausnahme "
+"von wenigen Einzeldosen-Impfstoffen) erhalten haben werden als vollständig "
+"geimpft angesehen."
+
+#: pretix_covid_certificates/views.py:20
+msgid "Vaccinated at least"
+msgstr "Mindestens geimpft seit"
+
+#: pretix_covid_certificates/views.py:25 pretix_covid_certificates/views.py:38
+#: pretix_covid_certificates/views.py:57 pretix_covid_certificates/views.py:70
+msgid "days ago"
+msgstr "Tagen"
+
+#: pretix_covid_certificates/views.py:33
+msgid "Vaccinated at most"
+msgstr "Längstens geimpft seit"
+
+#: pretix_covid_certificates/views.py:46
+msgid "Allow cured"
+msgstr "Erlaube Genesene"
+
+#: pretix_covid_certificates/views.py:48
+msgid ""
+"Only participants that have gone through and recovered from a COVID-"
+"infection are deemed cured."
+msgstr ""
+"Nur Teilnehmer die eine COVID-Erkrankung überstanden haben und "
+"sich vollständig von COVID geheilt wurden gelten als genesen."
+
+#: pretix_covid_certificates/views.py:52
+msgid "Cured at least"
+msgstr "Mindestens genesen seit"
+
+#: pretix_covid_certificates/views.py:65
+msgid "Cured at most"
+msgstr "Längstens geimpft seit"
+
+#: pretix_covid_certificates/views.py:78
+msgid "Allow tested (PCR)"
+msgstr "Erlaubte Getestete (PCR)"
+
+#: pretix_covid_certificates/views.py:80
+msgid ""
+"This covers exclusively participants having received a negative PCR-test."
+msgstr ""
+"Dies beschränkt sich ausschließlich auf Teilnehmer die einen negativen"
+"PCR-Test vorweisen können."
+
+#: pretix_covid_certificates/views.py:84
+msgid "PCR tested at least"
+msgstr "Mindestalter PCR-Test"
+
+#: pretix_covid_certificates/views.py:89 pretix_covid_certificates/views.py:102
+#: pretix_covid_certificates/views.py:122
+#: pretix_covid_certificates/views.py:135
+msgid "hours ago"
+msgstr "Stunden"
+
+#: pretix_covid_certificates/views.py:97
+msgid "PCR tested at most"
+msgstr "Maximalalter PCR-Test"
+
+#: pretix_covid_certificates/views.py:110
+msgid "Allow tested (Antigen or unknown)"
+msgstr "Erlaube Getestete (Antigen und Sonstige)"
+
+#: pretix_covid_certificates/views.py:112
+msgid ""
+"This covers exclusively participants having received a negative Antigen-test "
+"or any other type of test (with the exception of PCR-tests)."
+msgstr ""
+"Dies beschränkt sich ausschließlich auf Teilnehmer die einen negativen "
+"Antigen-Test oder andere Art von Test (mit Ausnahme von PCR-Tests) "
+"vorweisen können."
+
+#: pretix_covid_certificates/views.py:117
+msgid "Antigen/other tested at least"
+msgstr "Mindestalter Antingen/sonstige Tests"
+
+#: pretix_covid_certificates/views.py:130
+msgid "Antigen/other tested at most"
+msgstr "Maximalalter Antigen/sonstige Tests"
+
+#: pretix_covid_certificates/views.py:143
+msgid "Accept EU DGC (Digital Green Certificate)"
+msgstr "Akzeptiere EU DGC (Digitales Grünes Zertifikat)"
+
+#: pretix_covid_certificates/views.py:148
+msgid "Accept manual override"
+msgstr "Akzeptiere manuelle Freigabe"
+
+#: pretix_covid_certificates/views.py:150
+msgid ""
+"This options allows your staff to manually set the vaccination status for a "
+"participant - for example if they present their yellow vaccination booklet "
+"or any other form of certificate which cannot be processed automatically."
+msgstr ""
+"Diese Option erlaubt es dem Personal manuell den Status für einen Teilnehmer "
+"zu setzen - bspw. wenn der gelbe Impfpass oder ein alternatives Zertifikat "
+"vorgewiesen wird, welches nicht automatisch verarbeitet werden kann."
+
+#: pretix_covid_certificates/views.py:156
+msgid "Record proof"
+msgstr "Speichere Nachweisart"
+
+#: pretix_covid_certificates/views.py:158
+msgid ""
+"With this option enabled, pretixSCAN will record record what kind of "
+"certificate (vaccination, recovery, PCR- or Antigen-test) has been presented "
+"by the visitor. Saving this information is highly regulated in most "
+"countries and therefore not recommended. Only enable this option if you are "
+"required by your local health authorities to collect such information."
+msgstr ""
+"Ist diese Option aktiviert, speichert pretixSCAN welche Art von Nachweis "
+"(Geimpft, Genesen, PCR- oder Antingen-Test) vom Teilnehmer vorgewiesen wurde. "
+"Die Speicherung von dieser Art von Informationen ist in den meisten Ländern "
+"sehr stark reguliert und daher nicht empfohlen. Aktiviere diese Option nur, "
+"wenn Du von deiner lokalen Gesundheitsbehörden aufgeforderst wurde, diese "
+"Information zu speichern."
+
+#: pretix_covid_certificates/views.py:186
+msgid ""
+"This question has been created automatically by the Digital COVID "
+"Certificate Validation plugin. Please do not change its internal identifier."
+msgstr ""
+"Diese Frage wurde automatisch von der Erweiterung zur Prüfung von Digitalen "
+"COVID Zertifikaten. Bitte ändere nicht die Interne Referenz."
+
+#: pretix_covid_certificates/views.py:197
+msgid "Please select the products that require COVID certificate validation."
+msgstr ""
+"Bitte wähle die Produkte welche eine Überprüfung eines COVID-Zertifikates "
+"erfordern."
