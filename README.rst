@@ -45,9 +45,9 @@ License
 -------
 
 
-Copyright 2021 Raphael Michel
+Copyright 2021 pretix team
 
-Released under the terms of the proprietary pretix Enterprise license.
+Released under the terms of the Apache License 2.0
 
 
 
