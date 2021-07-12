@@ -61,7 +61,7 @@ settings_hierarkey.add_default('covid_certificates_allow_vaccinated_min', 14, in
 settings_hierarkey.add_default('covid_certificates_allow_vaccinated_max', 365, int)  # VR_DE_004 / VR_004
 settings_hierarkey.add_default('covid_certificates_allow_cured', False, bool)
 settings_hierarkey.add_default('covid_certificates_allow_cured_min', 27, int)  # RR_DE_001 / RR_001
-settings_hierarkey.add_default('covid_certificates_allow_cured_max', 365, int)  # RR_DE_002 / RR_01
+settings_hierarkey.add_default('covid_certificates_allow_cured_max', 180, int)  # RR_DE_002 / RR_01
 settings_hierarkey.add_default('covid_certificates_allow_tested_pcr', False, bool)
 settings_hierarkey.add_default('covid_certificates_allow_tested_pcr_min', 0, int)  # n/a / TR_002
 settings_hierarkey.add_default('covid_certificates_allow_tested_pcr_max', 72, int)  # TR_DE_003 / TR_003
