@@ -178,19 +178,18 @@ class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
         super().post(request, *args, **kwargs)
 
         question, created = Question.objects.get_or_create(
-            question=gettext('COVID Certificate Validation'),
-            type=Question.TYPE_TEXT,
-            required=True,
-            event=self.request.event,
-            help_text=gettext(
-                'This question has been created automatically by the Digital COVID Certificate Validation plugin. '
-                'Please do not change its internal identifier.'
-            ),
-            ask_during_checkin=True,
-            hidden=True,
             identifier='pretix_covid_certificates_question',
             defaults={
-                'identifier': 'pretix_covid_certificates_question',
+                'type': Question.TYPE_TEXT,
+                'question': gettext('COVID Certificate Validation'),
+                'required': True,
+                'event': self.request.event,
+                'help_text': gettext(
+                    'This question has been created automatically by the Digital COVID Certificate Validation plugin. '
+                    'Please do not change its internal identifier.'
+                ),
+                'ask_during_checkin': True,
+                'hidden': True,
             }
         )
 
