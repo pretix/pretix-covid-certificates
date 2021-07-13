@@ -42,6 +42,15 @@ class CovidCertificatesSettingsForm(SettingsForm):
         ),
     )
 
+    covid_certificates_record_proof_vaccinated = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.')
+    )
+
     covid_certificates_allow_cured = forms.BooleanField(
         label=_('Allow cured'),
         required=False,
@@ -74,6 +83,15 @@ class CovidCertificatesSettingsForm(SettingsForm):
         ),
     )
 
+    covid_certificates_record_proof_cured = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.')
+    )
+
     covid_certificates_allow_tested_pcr = forms.BooleanField(
         label=_('Allow tested (PCR)'),
         required=False,
@@ -104,6 +122,15 @@ class CovidCertificatesSettingsForm(SettingsForm):
                 'data-required-if': '#id_covid_certificates_allow_tested_pcr'
             }
         ),
+    )
+
+    covid_certificates_record_proof_tested_pcr = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.')
     )
 
     covid_certificates_allow_tested_antigen_unknown = forms.BooleanField(
@@ -139,6 +166,15 @@ class CovidCertificatesSettingsForm(SettingsForm):
         ),
     )
 
+    covid_certificates_record_proof_tested_antigen_unknown = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.')
+    )
+
     covid_certificates_accept_eudgc = forms.BooleanField(
         label=_('Accept EU DGC (Digital Green Certificate)'),
         required=False,
@@ -150,15 +186,6 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('This options allows your staff to manually set the vaccination status for a participant - for '
                     'example if they present their yellow vaccination booklet or any other form of certificate which '
                     'cannot be processed automatically.')
-    )
-
-    covid_certificates_record_proof = forms.BooleanField(
-        label=_('Record proof'),
-        required=False,
-        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
-                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
-                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
-                    'are required by your local health authorities to collect such information.')
     )
 
 
