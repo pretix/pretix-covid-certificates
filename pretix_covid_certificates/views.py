@@ -48,7 +48,12 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
                     'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
                     'highly regulated in most countries and therefore not recommended. Only enable this option if you '
-                    'are required by your local health authorities to collect such information.')
+                    'are required by your local health authorities to collect such information.'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'data-display-dependency': '#id_covid_certificates_allow_vaccinated',
+            }
+        ),
     )
 
     covid_certificates_allow_cured = forms.BooleanField(
@@ -89,7 +94,12 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
                     'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
                     'highly regulated in most countries and therefore not recommended. Only enable this option if you '
-                    'are required by your local health authorities to collect such information.')
+                    'are required by your local health authorities to collect such information.'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'data-display-dependency': '#id_covid_certificates_allow_cured',
+            }
+        ),
     )
 
     covid_certificates_allow_tested_pcr = forms.BooleanField(
@@ -130,7 +140,12 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
                     'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
                     'highly regulated in most countries and therefore not recommended. Only enable this option if you '
-                    'are required by your local health authorities to collect such information.')
+                    'are required by your local health authorities to collect such information.'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'data-display-dependency': '#id_covid_certificates_allow_tested_pcr',
+            }
+        ),
     )
 
     covid_certificates_allow_tested_antigen_unknown = forms.BooleanField(
@@ -172,7 +187,12 @@ class CovidCertificatesSettingsForm(SettingsForm):
         help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
                     'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
                     'highly regulated in most countries and therefore not recommended. Only enable this option if you '
-                    'are required by your local health authorities to collect such information.')
+                    'are required by your local health authorities to collect such information.'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'data-display-dependency': '#id_covid_certificates_allow_tested_antigen_unknown',
+            }
+        ),
     )
 
     covid_certificates_accept_eudgc = forms.BooleanField(
