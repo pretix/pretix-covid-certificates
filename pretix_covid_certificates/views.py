@@ -226,11 +226,11 @@ class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
 
         question, created = Question.objects.get_or_create(
             identifier='pretix_covid_certificates_question',
+            event=self.request.event,
             defaults={
                 'type': Question.TYPE_TEXT,
                 'question': gettext('COVID Certificate Validation'),
                 'required': True,
-                'event': self.request.event,
                 'help_text': gettext(
                     'This question has been created automatically by the Digital COVID Certificate Validation plugin. '
                     'Please do not change its internal identifier.'
