@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-12 11:19+0200\n"
+"POT-Creation-Date: 2021-07-21 13:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 
 #: pretix_covid_certificates/signals.py:21
-#: pretix_covid_certificates/views.py:181
+#: pretix_covid_certificates/views.py:182
 msgid "COVID Certificate Validation"
 msgstr ""
 
@@ -63,10 +63,10 @@ msgstr ""
 #: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:31
 msgid ""
 "Validating digital vaccination passports and test result certificates is "
-"only possible with pretixSCAN on Android, starting with version 1.11.0!"
+"only possible with pretixSCAN 1.11.0 or newer on Android 6.0 or newer!"
 msgstr ""
 
-#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:38
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:36
 msgid ""
 "Our validation algorithm for digital certificates is based on the official "
 "German validation apps. Please make sure to regularly update pretixSCAN to "
@@ -76,7 +76,7 @@ msgid ""
 "for you to use."
 msgstr ""
 
-#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:51
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:49
 msgid "Save"
 msgstr ""
 

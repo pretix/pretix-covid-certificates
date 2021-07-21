@@ -2,14 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-12 11:19+0200\n"
+"POT-Creation-Date: 2021-07-21 13:53+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Martin Gross\n"
+"Last-Translator: Raphael Michel <michel@rami.io>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #: pretix_covid_certificates/__init__.py:16
 msgid "Digital Covid Certificates"
@@ -24,7 +25,7 @@ msgstr ""
 "Impfzertifikaten bei Nutzung von pretixSCAN auf Android"
 
 #: pretix_covid_certificates/signals.py:21
-#: pretix_covid_certificates/views.py:181
+#: pretix_covid_certificates/views.py:182
 msgid "COVID Certificate Validation"
 msgstr "COVID Zertifikat Validierung"
 
@@ -72,12 +73,12 @@ msgstr ""
 #: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:31
 msgid ""
 "Validating digital vaccination passports and test result certificates is "
-"only possible with pretixSCAN on Android, starting with version 1.11.0!"
+"only possible with pretixSCAN 1.11.0 or newer on Android 6.0 or newer!"
 msgstr ""
 "Die Validierung von Impfnachweisen und Testzertifikaten ist nur mit "
-"pretixSCAN auf Android ab Version 1.11.0 möglich."
+"pretixSCAN 1.11.0 oder neuer auf Android 6.0 oder neuer möglich."
 
-#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:38
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:36
 msgid ""
 "Our validation algorithm for digital certificates is based on the official "
 "German validation apps. Please make sure to regularly update pretixSCAN to "
@@ -90,11 +91,11 @@ msgstr ""
 "offiziellen deutschen Validierungs-Apps. Bitte stelle sicher, dass "
 "pretixSCAN regelmäßig aktualisiert wird um keine Änderungen zu verpassen. "
 "Solltest Du außerhalb von Deutschland sein, können wir nicht beurteilen wie "
-"gut die deutschen Regeln zur Validierung anwendbar sind. Bitte teste "
-"daher die Validierung ausführlich um sicherzustellen dass die Validierung "
-"für Dich sinnvolle Ergebnisse liefert."
+"gut die deutschen Regeln zur Validierung anwendbar sind. Bitte teste daher "
+"die Validierung ausführlich um sicherzustellen dass die Validierung für Dich "
+"sinnvolle Ergebnisse liefert."
 
-#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:51
+#: pretix_covid_certificates/templates/pretix_covid_certificates/settings.html:49
 msgid "Save"
 msgstr "Speichern"
 
