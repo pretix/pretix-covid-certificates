@@ -26,6 +26,7 @@ class PluginApp(PluginConfig):
 
     def uninstalled(self, event):
         from pretix.base.models import Question
+
         # Upon deactivation of the plugin, we are removing all products associated with the
         # question. If we didn't do this, pretixSCAN will keep asking the question - possibly
         # with no way to answer it.

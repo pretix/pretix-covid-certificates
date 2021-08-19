@@ -208,6 +208,17 @@ class CovidCertificatesSettingsForm(SettingsForm):
                     'cannot be processed automatically.')
     )
 
+    covid_certificates_recheck_every_24h = forms.BooleanField(
+        label=_('Recheck status every 24h'),
+        required=False,
+        help_text=_("By default, a participant's status is assumed to be valid for the duration of the whole event. "
+                    "Activating this option will purge all recorded verifications every 24 hours and prompt for "
+                    "another verification upon the next ticket scan. Unless you scan the same ticket multiple days in "
+                    "a row, you will not need to activate this. Please note that activating this option will not allow "
+                    "you to run statistics regarding the frequency of presented proofs as this data will be purged "
+                    "every 24 hours.")
+    )
+
 
 class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
     model = Event

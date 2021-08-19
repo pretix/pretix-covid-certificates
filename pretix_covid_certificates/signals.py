@@ -1,14 +1,15 @@
 from django.dispatch import receiver
 from django.urls import resolve, reverse
-from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _, gettext_noop  # NoQA
 from django_scopes import scopes_disabled
-from pretix.base.models import QuestionAnswer
+from pretix.base.models import Event
 from pretix.base.settings import settings_hierarkey
 from pretix.base.signals import api_event_settings_fields, periodic_task
 from pretix.control.signals import nav_event_settings
 from pretix.helpers.periodic import minimum_interval
 from rest_framework import serializers
+
+from pretix_covid_certificates.tasks import expire_certificate_answers
 
 
 @receiver(nav_event_settings, dispatch_uid='pretix_covid_certificates_nav_event_settings')
@@ -29,9 +30,16 @@ def nav_event_settings(sender, request, **kwargs):
 
 @receiver(periodic_task, dispatch_uid='pretix_covid_certificates_periodic_task')
 @scopes_disabled()
-@minimum_interval(minutes_after_success=60)
+@minimum_interval(minutes_after_success=60 * 24)
 def periodic_task(sender, **kwargs):
-    QuestionAnswer.objects.filter(CovidCertificateExpiry__expiry__lte=now()).delete()
+    Event_SettingsStore = get_model('pretixbase', 'Event_SettingsStore') # NoQA
+    events = list(Event.objects.filter(
+        id__in=Event_SettingsStore.objects.filter(key='covid_certificates_recheck_every_24h', value=True).values_list('object_id', flat=True),
+        plugins__contains='pretix_covid_certificates',
+    ).values_list('pk', flat=True))
+
+    for eventpk in events:
+        expire_certificate_answers.apply(args=(eventpk,))
 
 
 @receiver(api_event_settings_fields, dispatch_uid="pretix_covid_certificates_api_event_settings_fields")
@@ -77,3 +85,4 @@ settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_
 settings_hierarkey.add_default('covid_certificates_record_proof_tested_antigen_unknown', False, bool)
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
+settings_hierarkey.add_default('covid_certificates_recheck_every_24h', False, bool)
