@@ -195,6 +195,26 @@ class CovidCertificatesSettingsForm(SettingsForm):
         ),
     )
 
+    covid_certificates_allow_other = forms.BooleanField(
+        label=_('Allow other forms of proof'),
+        required=False,
+    )
+
+
+    covid_certificates_record_proof_other = forms.BooleanField(
+        label=_('Record proof'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+                    'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
+                    'highly regulated in most countries and therefore not recommended. Only enable this option if you '
+                    'are required by your local health authorities to collect such information.'),
+        widget=forms.CheckboxInput(
+            attrs={
+                'data-display-dependency': '#id_covid_certificates_allow_other',
+            }
+        ),
+    )
+
     covid_certificates_accept_eudgc = forms.BooleanField(
         label=_('Accept EU DGC (Digital Green Certificate)'),
         required=False,
