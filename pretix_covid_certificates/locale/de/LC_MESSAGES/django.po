@@ -144,7 +144,7 @@ msgstr "Mindestens genesen seit"
 
 #: pretix_covid_certificates/views.py:65
 msgid "Cured at most"
-msgstr "Längstens geimpft seit"
+msgstr "Längstens genesen seit"
 
 #: pretix_covid_certificates/views.py:78
 msgid "Allow tested (PCR)"
