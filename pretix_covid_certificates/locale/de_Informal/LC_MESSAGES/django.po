@@ -216,7 +216,7 @@ msgstr "Speichere Nachweisart"
 
 #: pretix_covid_certificates/views.py:158
 msgid ""
-"With this option enabled, pretixSCAN will record record what kind of "
+"With this option enabled, pretixSCAN will record what kind of "
 "certificate (vaccination, recovery, PCR- or Antigen-test) has been presented "
 "by the visitor. Saving this information is highly regulated in most "
 "countries and therefore not recommended. Only enable this option if you are "
