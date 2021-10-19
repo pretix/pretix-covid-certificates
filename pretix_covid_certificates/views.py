@@ -204,7 +204,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
     covid_certificates_record_proof_other = forms.BooleanField(
         label=_('Record proof'),
         required=False,
-        help_text=_('With this option enabled, pretixSCAN will record record what kind of certificate (vaccination, '
+        help_text=_('With this option enabled, pretixSCAN will record what kind of certificate (vaccination, '
                     'recovery, PCR- or Antigen-test) has been presented by the visitor. Saving this information is '
                     'highly regulated in most countries and therefore not recommended. Only enable this option if you '
                     'are required by your local health authorities to collect such information.'),
@@ -213,6 +213,16 @@ class CovidCertificatesSettingsForm(SettingsForm):
                 'data-display-dependency': '#id_covid_certificates_allow_other',
             }
         ),
+    )
+
+    covid_certificates_record_validity_time = forms.BooleanField(
+        label=_('Record validity time'),
+        required=False,
+        help_text=_('With this option enabled, pretixSCAN will record at which the certificate becomes invalid according to '
+                    'the rules stated above. pretix will automatically remove the stored certificate around this time (there '
+                    'can be a small variance) so the person will need to show a new certificate on re-entry. All certificates '
+                    'where a date cannot be computed (such as non-digital certificates) will be considered valid until the end '
+                    'of the current day.'),
     )
 
     covid_certificates_accept_eudgc = forms.BooleanField(

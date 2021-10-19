@@ -1,14 +1,21 @@
+import logging
+from datetime import timedelta
+
+from dateutil.parser import parse
 from django.dispatch import receiver
 from django.urls import resolve, reverse
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _, gettext_noop  # NoQA
 from django_scopes import scopes_disabled
+from pretix_covid_certificates.models import CovidCertificateExpiry
+from rest_framework import serializers
+
 from pretix.base.models import QuestionAnswer
 from pretix.base.settings import settings_hierarkey
-from pretix.base.signals import api_event_settings_fields, periodic_task
+from pretix.base.signals import api_event_settings_fields, periodic_task, order_modified, order_placed, order_changed, checkin_created
 from pretix.control.signals import nav_event_settings
-from pretix.helpers.periodic import minimum_interval
-from rest_framework import serializers
+
+logger = logging.getLogger(__name__)
 
 
 @receiver(nav_event_settings, dispatch_uid='pretix_covid_certificates_nav_event_settings')
@@ -27,11 +34,60 @@ def nav_event_settings(sender, request, **kwargs):
     }]
 
 
+def _update_expiry_index(qa: QuestionAnswer):
+    try:
+        pairs = qa.answer.split(",")
+        for p in pairs:
+            k, v = p.strip().split(":", 1)
+            if k.strip() == "expires":
+                dt = parse(v.strip())
+                CovidCertificateExpiry.objects.update_or_create(
+                    answer=qa,
+                    defaults={
+                        'expiry': dt
+                    }
+                )
+    except Exception:
+        logger.exception(f"Could not parse COVID certificate validation record for answer {qa.pk}")
+
+
+@receiver(order_modified, dispatch_uid='pretix_covid_certificates_index_modified')
+@receiver(order_placed, dispatch_uid='pretix_covid_certificates_index_placed')
+@receiver(order_changed, dispatch_uid='pretix_covid_certificates_index_changed')
+def recv_order_placed(order, **kwargs):
+    for qa in QuestionAnswer.objects.filter(
+            orderposition__order=order,
+            question__identifier="pretix_covid_certificates_question",
+    ):
+        _update_expiry_index(qa)
+
+
+@receiver(checkin_created, dispatch_uid='pretix_covid_certificates_index_checkin')
+def recv_checkin_created(checkin, **kwargs):
+    if not checkin.position_id:
+        return
+    for qa in QuestionAnswer.objects.filter(
+            orderposition_id=checkin.position_id,
+            question__identifier="pretix_covid_certificates_question",
+    ):
+        _update_expiry_index(qa)
+
+
 @receiver(periodic_task, dispatch_uid='pretix_covid_certificates_periodic_task')
 @scopes_disabled()
-@minimum_interval(minutes_after_success=60)
 def periodic_task(sender, **kwargs):
-    QuestionAnswer.objects.filter(CovidCertificateExpiry__expiry__lte=now()).delete()
+    for qa in QuestionAnswer.objects.filter(
+            question__identifier="pretix_covid_certificates_question",
+            answer__contains="expires:",
+            CovidCertificateExpiry__isnull=True
+    ).iterator():
+        _update_expiry_index(qa)
+    for qa in QuestionAnswer.objects.filter(
+            CovidCertificateExpiry__expiry__lte=now() + timedelta(minutes=10)
+    ).select_related('orderposition', 'orderposition__order').iterator():
+        qa.delete()
+        if qa.orderposition:
+            qa.orderposition.order.touch()
 
 
 @receiver(api_event_settings_fields, dispatch_uid="pretix_covid_certificates_api_event_settings_fields")
@@ -55,6 +111,7 @@ def api_event_settings_fields(sender, **kwargs):
         'covid_certificates_record_proof_tested_antigen_unknown': serializers.BooleanField(required=False),
         'covid_certificates_allow_other': serializers.BooleanField(required=False),
         'covid_certificates_record_proof_other': serializers.BooleanField(required=False),
+        'covid_certificates_record_validity_time': serializers.BooleanField(required=False),
         'covid_certificates_accept_eudgc': serializers.BooleanField(required=False),
         'covid_certificates_accept_manual': serializers.BooleanField(required=False),
     }
@@ -79,5 +136,6 @@ settings_hierarkey.add_default('covid_certificates_allow_tested_antigen_unknown_
 settings_hierarkey.add_default('covid_certificates_record_proof_tested_antigen_unknown', False, bool)
 settings_hierarkey.add_default('covid_certificates_allow_other', False, bool)
 settings_hierarkey.add_default('covid_certificates_record_proof_other', False, bool)
+settings_hierarkey.add_default('covid_certificates_record_validity_time', False, bool)
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
