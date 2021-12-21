@@ -36,17 +36,22 @@ def nav_event_settings(sender, request, **kwargs):
 
 def _update_expiry_index(qa: QuestionAnswer):
     try:
-        pairs = qa.answer.split(",")
-        for p in pairs:
-            k, v = p.strip().split(":", 1)
-            if k.strip() == "expires":
-                dt = parse(v.strip())
-                CovidCertificateExpiry.objects.update_or_create(
-                    answer=qa,
-                    defaults={
-                        'expiry': dt
-                    }
-                )
+        lines = qa.answer.splitlines()
+        dates = []
+        for line in lines:
+            pairs = line.split(",")
+            for p in pairs:
+                k, v = p.strip().split(":", 1)
+                if k.strip() == "expires":
+                    dt = parse(v.strip())
+                    dates.append(dt)
+        if dates:
+            CovidCertificateExpiry.objects.update_or_create(
+                answer=qa,
+                defaults={
+                    'expiry': min(dates)
+                }
+            )
     except Exception:
         logger.exception(f"Could not parse COVID certificate validation record for answer {qa.pk}")
 
@@ -114,6 +119,7 @@ def api_event_settings_fields(sender, **kwargs):
         'covid_certificates_record_validity_time': serializers.BooleanField(required=False),
         'covid_certificates_accept_eudgc': serializers.BooleanField(required=False),
         'covid_certificates_accept_manual': serializers.BooleanField(required=False),
+        'covid_certificates_combination_rules': serializers.CharField(required=False),
     }
 
 
@@ -139,3 +145,4 @@ settings_hierarkey.add_default('covid_certificates_record_proof_other', False, b
 settings_hierarkey.add_default('covid_certificates_record_validity_time', False, bool)
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
+settings_hierarkey.add_default('covid_certificates_combination_rules', '', str)
