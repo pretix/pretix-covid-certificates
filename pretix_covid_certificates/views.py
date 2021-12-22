@@ -59,7 +59,7 @@ DEFAULT_COMBINATION_RULES = [
         json.dumps({"or": [
             {"and": [
                 {"var": "VACC"},
-                {"!=": [{"var": "VACC.occurence_days_since"}, None]},
+                {"!=": [{"var": "VACC.occurence_days_since"}, None]},  # required because in json logic, None < 180 is true
                 {"<=": [{"var": "VACC.occurence_days_since"}, 180]}
             ]},
             {"var": "CURED"},
