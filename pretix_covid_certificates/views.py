@@ -12,6 +12,7 @@ from pretix.control.views.event import EventSettingsFormView, EventSettingsViewM
 
 DEFAULT_COMBINATION_RULES = [
     (
+        # Regular behaviour, either tested or vaccinated or cured
         json.dumps({"or": [
             {"var": "VACC"},
             {"var": "CURED"},
@@ -22,6 +23,7 @@ DEFAULT_COMBINATION_RULES = [
         _('Any one of the certificate types enabled below')
     ),
     (
+        # Known as "2G+" in Germany
         json.dumps({"and": [
             {"or": [
                 {"var": "VACC"},
@@ -56,6 +58,7 @@ DEFAULT_COMBINATION_RULES = [
           'vaccination, no test for cured attendees)')
     ),
     (
+        # This is roughly what is required in the state of Baden-Wurttemberg, Germany in December 2021
         json.dumps({"or": [
             {"and": [
                 {"var": "VACC"},
