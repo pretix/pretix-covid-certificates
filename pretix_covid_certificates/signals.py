@@ -8,6 +8,7 @@ from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _, gettext_noop  # NoQA
 from django_scopes import scopes_disabled
 from pretix_covid_certificates.models import CovidCertificateExpiry
+from pretix_covid_certificates.views import DEFAULT_COMBINATION_RULES
 from rest_framework import serializers
 
 from pretix.base.models import QuestionAnswer
@@ -145,4 +146,4 @@ settings_hierarkey.add_default('covid_certificates_record_proof_other', False, b
 settings_hierarkey.add_default('covid_certificates_record_validity_time', False, bool)
 settings_hierarkey.add_default('covid_certificates_accept_eudgc', True, bool)
 settings_hierarkey.add_default('covid_certificates_accept_manual', True, bool)
-settings_hierarkey.add_default('covid_certificates_combination_rules', '', str)
+settings_hierarkey.add_default('covid_certificates_combination_rules', DEFAULT_COMBINATION_RULES[0], str)
