@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 13:53+0200\n"
+"POT-Creation-Date: 2022-01-05 13:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Raphael Michel <michel@rami.io>\n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: pretix_covid_certificates/__init__.py:16
 msgid "Digital Covid Certificates"
@@ -24,8 +24,8 @@ msgstr ""
 "Diese Erweiterung erlaubt die Konfiguration der Abfrage von COVID Test- und "
 "Impfzertifikaten bei Nutzung von pretixSCAN auf Android"
 
-#: pretix_covid_certificates/signals.py:21
-#: pretix_covid_certificates/views.py:182
+#: pretix_covid_certificates/signals.py:29
+#: pretix_covid_certificates/views.py:367
 msgid "COVID Certificate Validation"
 msgstr "COVID Zertifikat Validierung"
 
@@ -99,11 +99,58 @@ msgstr ""
 msgid "Save"
 msgstr "Speichern"
 
-#: pretix_covid_certificates/views.py:13
+#: pretix_covid_certificates/views.py:23
+msgid "Any one of the certificate types enabled below"
+msgstr "3G/2G: Ein beliebiger der unten aktivierten Zertifikatstypen"
+
+#: pretix_covid_certificates/views.py:39
+msgid ""
+"One immunization certificate (vaccinated or cured) PLUS one test certificate"
+msgstr ""
+"2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis"
+
+#: pretix_covid_certificates/views.py:57
+msgid ""
+"One immunization certificate (vaccinated or cured) PLUS one test certificate "
+"(only without booster vaccination, no test for cured attendees)"
+msgstr ""
+"2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
+"(kein Test bei Auffrischimpfung, kein Test für genesene)"
+
+#: pretix_covid_certificates/views.py:82
+msgid ""
+"One immunization certificate (vaccinated or cured) PLUS one test certificate "
+"(only if vaccinated more than 180 days ago and no booster vaccination, no "
+"test for cured attendees)"
+msgstr ""
+"2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
+"(kein Test bei Auffrischimpfung, kein Test wenn Impfung weniger als 180 Tage "
+"alt, kein Test für genesene)"
+
+#: pretix_covid_certificates/views.py:102
+msgid ""
+"One immunization certificate (vaccinated or cured) PLUS one test certificate "
+"(only if vaccinated more than 180 days ago, no test for cured attendees)"
+msgstr ""
+"2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
+"(kein Test wenn Impfung weniger als 180 Tage alt, kein Test für genesene)"
+
+#: pretix_covid_certificates/views.py:110
+msgid "Check type"
+msgstr "Art der Prüfung"
+
+#: pretix_covid_certificates/views.py:114
+msgid ""
+"Every option other than the first one is only supported on pretixSCAN 1.13.0 "
+"or newer."
+msgstr ""
+"Alle Optionen außer der ersten werden erst ab pretixSCAN 1.13.0 unterstützt."
+
+#: pretix_covid_certificates/views.py:118
 msgid "Allow vaccinated"
 msgstr "Erlaube Impfungen"
 
-#: pretix_covid_certificates/views.py:15
+#: pretix_covid_certificates/views.py:120
 msgid ""
 "Only participants that have received the complete treatment (two doses with "
 "the exception of designated single-dose vaccines) are deemed completely "
@@ -113,24 +160,53 @@ msgstr ""
 "von wenigen Einzeldosen-Impfstoffen) erhalten haben werden als vollständig "
 "geimpft angesehen."
 
-#: pretix_covid_certificates/views.py:20
+#: pretix_covid_certificates/views.py:125
 msgid "Vaccinated at least"
 msgstr "Mindestens geimpft seit"
 
-#: pretix_covid_certificates/views.py:25 pretix_covid_certificates/views.py:38
-#: pretix_covid_certificates/views.py:57 pretix_covid_certificates/views.py:70
+#: pretix_covid_certificates/views.py:130
+#: pretix_covid_certificates/views.py:143
+#: pretix_covid_certificates/views.py:176
+#: pretix_covid_certificates/views.py:189
 msgid "days ago"
 msgstr "Tagen"
 
-#: pretix_covid_certificates/views.py:33
+#: pretix_covid_certificates/views.py:138
 msgid "Vaccinated at most"
 msgstr "Längstens geimpft seit"
 
-#: pretix_covid_certificates/views.py:46
+#: pretix_covid_certificates/views.py:151
+#: pretix_covid_certificates/views.py:197
+#: pretix_covid_certificates/views.py:243
+#: pretix_covid_certificates/views.py:290
+#: pretix_covid_certificates/views.py:310
+msgid "Record proof"
+msgstr "Speichere Nachweisart"
+
+#: pretix_covid_certificates/views.py:153
+#: pretix_covid_certificates/views.py:199
+#: pretix_covid_certificates/views.py:245
+#: pretix_covid_certificates/views.py:292
+#: pretix_covid_certificates/views.py:312
+msgid ""
+"With this option enabled, pretixSCAN will record what kind of certificate "
+"(vaccination, recovery, PCR- or Antigen-test) has been presented by the "
+"visitor. Saving this information is highly regulated in most countries and "
+"therefore not recommended. Only enable this option if you are required by "
+"your local health authorities to collect such information."
+msgstr ""
+"Ist diese Option aktiviert, speichert pretixSCAN welche Art von Nachweis "
+"(Geimpft, Genesen, PCR- oder Antingen-Test) vom Teilnehmer vorgewiesen "
+"wurde. Die Speicherung von dieser Art von Informationen ist in den meisten "
+"Ländern sehr stark reguliert und daher nicht empfohlen. Aktiviere diese "
+"Option nur, wenn Du von deiner lokalen Gesundheitsbehörden aufgeforderst "
+"wurde, diese Information zu speichern."
+
+#: pretix_covid_certificates/views.py:165
 msgid "Allow cured"
 msgstr "Erlaube Genesene"
 
-#: pretix_covid_certificates/views.py:48
+#: pretix_covid_certificates/views.py:167
 msgid ""
 "Only participants that have gone through and recovered from a COVID-"
 "infection are deemed cured."
@@ -138,44 +214,45 @@ msgstr ""
 "Nur Teilnehmer die eine COVID-Erkrankung überstanden haben und sich "
 "vollständig von COVID geheilt wurden gelten als genesen."
 
-#: pretix_covid_certificates/views.py:52
+#: pretix_covid_certificates/views.py:171
 msgid "Cured at least"
 msgstr "Mindestens genesen seit"
 
-#: pretix_covid_certificates/views.py:65
+#: pretix_covid_certificates/views.py:184
 msgid "Cured at most"
 msgstr "Längstens genesen seit"
 
-#: pretix_covid_certificates/views.py:78
+#: pretix_covid_certificates/views.py:211
 msgid "Allow tested (PCR)"
 msgstr "Erlaubte Getestete (PCR)"
 
-#: pretix_covid_certificates/views.py:80
+#: pretix_covid_certificates/views.py:213
 msgid ""
 "This covers exclusively participants having received a negative PCR-test."
 msgstr ""
 "Dies beschränkt sich ausschließlich auf Teilnehmer die einen negativenPCR-"
 "Test vorweisen können."
 
-#: pretix_covid_certificates/views.py:84
+#: pretix_covid_certificates/views.py:217
 msgid "PCR tested at least"
 msgstr "Mindestalter PCR-Test"
 
-#: pretix_covid_certificates/views.py:89 pretix_covid_certificates/views.py:102
-#: pretix_covid_certificates/views.py:122
-#: pretix_covid_certificates/views.py:135
+#: pretix_covid_certificates/views.py:222
+#: pretix_covid_certificates/views.py:235
+#: pretix_covid_certificates/views.py:269
+#: pretix_covid_certificates/views.py:282
 msgid "hours ago"
 msgstr "Stunden"
 
-#: pretix_covid_certificates/views.py:97
+#: pretix_covid_certificates/views.py:230
 msgid "PCR tested at most"
 msgstr "Maximalalter PCR-Test"
 
-#: pretix_covid_certificates/views.py:110
+#: pretix_covid_certificates/views.py:257
 msgid "Allow tested (Antigen or unknown)"
 msgstr "Erlaube Getestete (Antigen und Sonstige)"
 
-#: pretix_covid_certificates/views.py:112
+#: pretix_covid_certificates/views.py:259
 msgid ""
 "This covers exclusively participants having received a negative Antigen-test "
 "or any other type of test (with the exception of PCR-tests)."
@@ -184,23 +261,47 @@ msgstr ""
 "Antigen-Test oder andere Art von Test (mit Ausnahme von PCR-Tests) vorweisen "
 "können."
 
-#: pretix_covid_certificates/views.py:117
+#: pretix_covid_certificates/views.py:264
 msgid "Antigen/other tested at least"
 msgstr "Mindestalter Antingen/sonstige Tests"
 
-#: pretix_covid_certificates/views.py:130
+#: pretix_covid_certificates/views.py:277
 msgid "Antigen/other tested at most"
 msgstr "Maximalalter Antigen/sonstige Tests"
 
-#: pretix_covid_certificates/views.py:143
+#: pretix_covid_certificates/views.py:304
+msgid "Allow other forms of proof"
+msgstr "Andere Art des Nachweises erlauben"
+
+#: pretix_covid_certificates/views.py:324
+msgid "Record validity time"
+msgstr "Speichere Dauer der Nachweisgültigkeit"
+
+#: pretix_covid_certificates/views.py:326
+msgid ""
+"With this option enabled, pretixSCAN will record at which the certificate "
+"becomes invalid according to the rules stated above. pretix will "
+"automatically remove the stored certificate around this time (there can be a "
+"small variance) so the person will need to show a new certificate on re-"
+"entry. All certificates where a date cannot be computed (such as non-digital "
+"certificates) will be considered valid until the end of the current day."
+msgstr ""
+"Mit dieser Option speichert pretixSCAN den Zeitpunkt, zu dem der Nachweis "
+"aufgrund der oben genannten Regeln ungültig wird. pretix wird das Zertifikat "
+"dann automatisch ungefähr zu diesem Zeitpunkt aus der Datenbank löschen, "
+"sodass bei einem erneuten Eintritt ein neues Zertifikat gezeigt werden muss. "
+"Ist das Gültigkeitsdatum nicht bekannt (wie z.B. bei nicht-digitalen "
+"Nachweisen) wird als Gültigkeitsdatum das Ende des aktuellen Tages verwendet."
+
+#: pretix_covid_certificates/views.py:334
 msgid "Accept EU DGC (Digital Green Certificate)"
 msgstr "Akzeptiere EU DGC (Digitales Grünes Zertifikat)"
 
-#: pretix_covid_certificates/views.py:148
+#: pretix_covid_certificates/views.py:339
 msgid "Accept manual override"
 msgstr "Akzeptiere manuelle Freigabe"
 
-#: pretix_covid_certificates/views.py:150
+#: pretix_covid_certificates/views.py:341
 msgid ""
 "This options allows your staff to manually set the vaccination status for a "
 "participant - for example if they present their yellow vaccination booklet "
@@ -210,26 +311,7 @@ msgstr ""
 "zu setzen - bspw. wenn der gelbe Impfpass oder ein alternatives Zertifikat "
 "vorgewiesen wird, welches nicht automatisch verarbeitet werden kann."
 
-#: pretix_covid_certificates/views.py:156
-msgid "Record proof"
-msgstr "Speichere Nachweisart"
-
-#: pretix_covid_certificates/views.py:158
-msgid ""
-"With this option enabled, pretixSCAN will record what kind of "
-"certificate (vaccination, recovery, PCR- or Antigen-test) has been presented "
-"by the visitor. Saving this information is highly regulated in most "
-"countries and therefore not recommended. Only enable this option if you are "
-"required by your local health authorities to collect such information."
-msgstr ""
-"Ist diese Option aktiviert, speichert pretixSCAN welche Art von Nachweis "
-"(Geimpft, Genesen, PCR- oder Antingen-Test) vom Teilnehmer vorgewiesen "
-"wurde. Die Speicherung von dieser Art von Informationen ist in den meisten "
-"Ländern sehr stark reguliert und daher nicht empfohlen. Aktiviere diese "
-"Option nur, wenn Du von deiner lokalen Gesundheitsbehörden aufgeforderst "
-"wurde, diese Information zu speichern."
-
-#: pretix_covid_certificates/views.py:186
+#: pretix_covid_certificates/views.py:370
 msgid ""
 "This question has been created automatically by the Digital COVID "
 "Certificate Validation plugin. Please do not change its internal identifier."
@@ -237,7 +319,7 @@ msgstr ""
 "Diese Frage wurde automatisch von der Erweiterung zur Prüfung von Digitalen "
 "COVID Zertifikaten. Bitte ändere nicht die Interne Referenz."
 
-#: pretix_covid_certificates/views.py:197
+#: pretix_covid_certificates/views.py:378
 msgid "Please select the products that require COVID certificate validation."
 msgstr ""
 "Bitte wähle die Produkte welche eine Überprüfung eines COVID-Zertifikates "
