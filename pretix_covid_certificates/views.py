@@ -51,7 +51,7 @@ DEFAULT_COMBINATION_RULES = [
             {
                 "or": [
                     {"var": "CURED"},
-                    {"and": [{"var": "VACC"}, {"var": "VACC.isBooster"}]},
+                    {"and": [{"var": "VACC"}, {"var": "VACC_isBooster"}]},
                     {
                         "and": [
                             {"var": "VACC"},
@@ -82,13 +82,13 @@ DEFAULT_COMBINATION_RULES = [
                         "and": [
                             {"var": "VACC"},
                             {
-                                "!=": [{"var": "VACC.occurence_days_since"}, None]
+                                "!=": [{"var": "VACC_occurence_days_since"}, None]
                             },  # required because in json logic, None < 180 is true
-                            {"<=": [{"var": "VACC.occurence_days_since"}, 180]},
+                            {"<=": [{"var": "VACC_occurence_days_since"}, 180]},
                         ]
                     },
                     {"var": "CURED"},
-                    {"and": [{"var": "VACC"}, {"var": "VACC.isBooster"}]},
+                    {"and": [{"var": "VACC"}, {"var": "VACC_isBooster"}]},
                     {
                         "and": [
                             {"var": "VACC"},
@@ -117,8 +117,8 @@ DEFAULT_COMBINATION_RULES = [
                     {
                         "and": [
                             {"var": "VACC"},
-                            {"!=": [{"var": "VACC.occurence_days_since"}, None]},
-                            {"<=": [{"var": "VACC.occurence_days_since"}, 180]},
+                            {"!=": [{"var": "VACC_occurence_days_since"}, None]},
+                            {"<=": [{"var": "VACC_occurence_days_since"}, 180]},
                         ]
                     },
                     {"var": "CURED"},
@@ -153,7 +153,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.RadioSelect,
         choices=DEFAULT_COMBINATION_RULES,
         help_text=_(
-            "Every option other than the first one is only supported on pretixSCAN 1.13.0 or newer."
+            "Every option other than the first one is only supported on pretixSCAN 1.13.1 or newer."
         ),
     )
 

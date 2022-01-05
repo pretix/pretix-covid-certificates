@@ -141,10 +141,10 @@ msgstr "Art der Prüfung"
 
 #: pretix_covid_certificates/views.py:114
 msgid ""
-"Every option other than the first one is only supported on pretixSCAN 1.13.0 "
+"Every option other than the first one is only supported on pretixSCAN 1.13.1 "
 "or newer."
 msgstr ""
-"Alle Optionen außer der ersten werden erst ab pretixSCAN 1.13.0 unterstützt."
+"Alle Optionen außer der ersten werden erst ab pretixSCAN 1.13.1 unterstützt."
 
 #: pretix_covid_certificates/views.py:118
 msgid "Allow vaccinated"

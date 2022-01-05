@@ -114,7 +114,7 @@ msgstr ""
 
 #: pretix_covid_certificates/views.py:114
 msgid ""
-"Every option other than the first one is only supported on pretixSCAN 1.13.0 "
+"Every option other than the first one is only supported on pretixSCAN 1.13.1 "
 "or newer."
 msgstr ""
 
