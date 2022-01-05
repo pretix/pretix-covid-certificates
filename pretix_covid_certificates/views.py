@@ -1,14 +1,119 @@
+import json
+
 from django import forms
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext, gettext_lazy as _, gettext_noop  # NoQA
+
 from pretix.base.forms import SettingsForm
 from pretix.base.models import Event, Question
 from pretix.control.views.event import EventSettingsFormView, EventSettingsViewMixin
 
+DEFAULT_COMBINATION_RULES = [
+    (
+        # Regular behaviour, either tested or vaccinated or cured
+        json.dumps({"or": [
+            {"var": "VACC"},
+            {"var": "CURED"},
+            {"var": "TESTED_PCR"},
+            {"var": "TESTED_AG_UNKNOWN"},
+            {"var": "OTHER"}
+        ]}, sort_keys=True),
+        _('Any one of the certificate types enabled below')
+    ),
+    (
+        # Known as "2G+" in Germany
+        json.dumps({"and": [
+            {"or": [
+                {"var": "VACC"},
+                {"var": "CURED"},
+                {"var": "OTHER"}
+            ]},
+            {"or": [
+                {"var": "TESTED_PCR"},
+                {"var": "TESTED_AG_UNKNOWN"},
+                {"var": "OTHER"}
+            ]},
+        ]}, sort_keys=True),
+        _('One immunization certificate (vaccinated or cured) PLUS one test certificate')
+    ),
+    (
+        json.dumps({"or": [
+            {"var": "CURED"},
+            {"and": [
+                {"var": "VACC"},
+                {"var": "VACC.isBooster"}
+            ]},
+            {"and": [
+                {"var": "VACC"},
+                {"or": [
+                    {"var": "TESTED_PCR"},
+                    {"var": "TESTED_AG_UNKNOWN"}
+                ]}
+            ]},
+            {"var": "OTHER"}
+        ]}, sort_keys=True),
+        _('One immunization certificate (vaccinated or cured) PLUS one test certificate (only without booster '
+          'vaccination, no test for cured attendees)')
+    ),
+    (
+        # This is roughly what is required in the state of Baden-Wurttemberg, Germany in December 2021
+        json.dumps({"or": [
+            {"and": [
+                {"var": "VACC"},
+                {"!=": [{"var": "VACC.occurence_days_since"}, None]},  # required because in json logic, None < 180 is true
+                {"<=": [{"var": "VACC.occurence_days_since"}, 180]}
+            ]},
+            {"var": "CURED"},
+            {"and": [
+                {"var": "VACC"},
+                {"var": "VACC.isBooster"}
+            ]},
+            {"and": [
+                {"var": "VACC"},
+                {"or": [
+                    {"var": "TESTED_PCR"},
+                    {"var": "TESTED_AG_UNKNOWN"}
+                ]}
+            ]},
+            {"var": "OTHER"}
+        ]}, sort_keys=True),
+        _('One immunization certificate (vaccinated or cured) PLUS one test certificate (only if vaccinated more than '
+          '180 days ago and no booster vaccination, no test for cured attendees)')
+    ),
+    (
+        json.dumps({"or": [
+            {"and": [
+                {"var": "VACC"},
+                {"!=": [{"var": "VACC.occurence_days_since"}, None]},
+                {"<=": [{"var": "VACC.occurence_days_since"}, 180]}
+            ]},
+            {"var": "CURED"},
+            {"and": [
+                {"var": "VACC"},
+                {"or": [
+                    {"var": "TESTED_PCR"},
+                    {"var": "TESTED_AG_UNKNOWN"}
+                ]}
+            ]},
+            {"var": "OTHER"}
+        ]}, sort_keys=True),
+        _('One immunization certificate (vaccinated or cured) PLUS one test certificate (only if vaccinated more than '
+          '180 days ago, no test for cured attendees)')
+    ),
+]
+
 
 class CovidCertificatesSettingsForm(SettingsForm):
+    covid_certificates_combination_rules = forms.ChoiceField(
+        label=_('Check type'),
+        required=False,
+        widget=forms.RadioSelect,
+        choices=DEFAULT_COMBINATION_RULES,
+        help_text=_('Every option other than the first one is only supported on pretixSCAN 1.13.0 or newer.'),
+    )
+
     covid_certificates_allow_vaccinated = forms.BooleanField(
         label=_('Allow vaccinated'),
         required=False,
