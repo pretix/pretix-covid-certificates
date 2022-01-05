@@ -115,7 +115,7 @@ msgid ""
 "(only without booster vaccination, no test for cured attendees)"
 msgstr ""
 "2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
-"(kein Test bei Auffrischimpfung, kein Test für genesene)"
+"(kein Test bei Auffrischimpfung, kein Test für Genesene)"
 
 #: pretix_covid_certificates/views.py:82
 msgid ""
@@ -125,7 +125,7 @@ msgid ""
 msgstr ""
 "2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
 "(kein Test bei Auffrischimpfung, kein Test wenn Impfung weniger als 180 Tage "
-"alt, kein Test für genesene)"
+"alt, kein Test für Genesene)"
 
 #: pretix_covid_certificates/views.py:102
 msgid ""
@@ -133,7 +133,7 @@ msgid ""
 "(only if vaccinated more than 180 days ago, no test for cured attendees)"
 msgstr ""
 "2G+: Ein Immunisierungsnachweis (geimpft oder genesen) PLUS ein Testnachweis "
-"(kein Test wenn Impfung weniger als 180 Tage alt, kein Test für genesene)"
+"(kein Test wenn Impfung weniger als 180 Tage alt, kein Test für Genesene)"
 
 #: pretix_covid_certificates/views.py:110
 msgid "Check type"
