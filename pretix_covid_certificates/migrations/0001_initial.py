@@ -10,19 +10,31 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('pretixbase', '0193_auto_20210611_1355'),
+        ("pretixbase", "0193_auto_20210611_1355"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='CovidCertificateExpiry',
+            name="CovidCertificateExpiry",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False)),
-                ('expiry', models.DateTimeField(db_index=True)),
-                ('answer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='CovidCertificateExpiry', to='pretixbase.questionanswer')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False
+                    ),
+                ),
+                ("expiry", models.DateTimeField(db_index=True)),
+                (
+                    "answer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="CovidCertificateExpiry",
+                        to="pretixbase.questionanswer",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
             bases=(models.Model, pretix.base.models.base.LoggingMixin),
         ),
