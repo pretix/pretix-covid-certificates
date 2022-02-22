@@ -9,10 +9,10 @@ from pretix.base.models import Event, Question
 from pretix.control.views.event import EventSettingsFormView, EventSettingsViewMixin
 
 VACCINATION_PRODUCTS = (
-    ("EU/1/20/1528", _('Comirnaty (BioNTech/Pfizer)')),
-    ("EU/1/20/1525", _('Janssen (Johnson & Johnson)')),
-    ("EU/1/20/1507", _('Spikevax (Moderna)')),
-    ("EU/1/21/1529", _('Vaxzevria (AstraZeneca)')),
+    ("EU/1/20/1528", _("Comirnaty (BioNTech/Pfizer)")),
+    ("EU/1/20/1525", _("Janssen (Johnson & Johnson)")),
+    ("EU/1/20/1507", _("Spikevax (Moderna)")),
+    ("EU/1/21/1529", _("Vaxzevria (AstraZeneca)")),
     # Preliminary names present in https://github.com/Digitaler-Impfnachweis/covpass-android/blob/20faa2bc04f4296d2a220d5676e964272ad3092b/covpass-sdk/src/main/assets/covpass-sdk/eu-value-sets.json
     ("Sputnik-V", _("Sputnik-V")),
     ("Sputnik-Light", _("Sputnik Light")),
@@ -248,9 +248,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         required=False,
         widget=forms.CheckboxSelectMultiple,
         choices=VACCINATION_PRODUCTS,
-        help_text=_(
-            "Only supported on pretixSCAN 1.13.3 or newer."
-        ),
+        help_text=_("Only supported on pretixSCAN 1.13.3 or newer."),
     )
 
     covid_certificates_allow_cured = forms.BooleanField(
@@ -491,8 +489,10 @@ class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
             },
         )
         if not created:
-            question.required = self.request.event.settings.covid_certificates_record_proof
-            question.save(update_fields=['required'])
+            question.required = (
+                self.request.event.settings.covid_certificates_record_proof
+            )
+            question.save(update_fields=["required"])
 
         messages.warning(
             request,
