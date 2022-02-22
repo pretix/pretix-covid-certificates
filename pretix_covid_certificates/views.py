@@ -8,6 +8,28 @@ from pretix.base.forms import SettingsForm
 from pretix.base.models import Event, Question
 from pretix.control.views.event import EventSettingsFormView, EventSettingsViewMixin
 
+VACCINATION_PRODUCTS = (
+    ("EU/1/20/1528", _('Comirnaty (BioNTech/Pfizer)')),
+    ("EU/1/20/1525", _('Janssen (Johnson & Johnson)')),
+    ("EU/1/20/1507", _('Spikevax (Moderna)')),
+    ("EU/1/21/1529", _('Vaxzevria (AstraZeneca)')),
+    # Preliminary names present in https://github.com/Digitaler-Impfnachweis/covpass-android/blob/20faa2bc04f4296d2a220d5676e964272ad3092b/covpass-sdk/src/main/assets/covpass-sdk/eu-value-sets.json
+    ("Sputnik-V", _("Sputnik-V")),
+    ("Sputnik-Light", _("Sputnik Light")),
+    ("Convidecia", _("Convidecia")),
+    ("Inactivated-SARS-CoV-2-Vero-Cell", _("Inactivated SARS-CoV-2 (Vero Cell)")),
+    ("CoviVac", _("CoviVac")),
+    ("CoronaVac", _("CoronaVac")),
+    ("Covishield", _("Covishield (ChAdOx1_nCoV-19)")),
+    ("Hayat-Vax", _("Hayat-Vax")),
+    ("R-COVI", _("R-COVI")),
+    ("CVnCoV", _("CVnCoV")),
+    ("BBIBP-CorV", _("BBIBP-CorV")),
+    ("Covaxin", _("Covacin (also known as BBV152 A, B, C)")),
+    ("Covid-19-recombinant", _("Covid-19 (recombinant)")),
+    ("EpiVacCorona", _("EpiVacCorona")),
+)
+
 DEFAULT_COMBINATION_RULES = [
     (
         # Regular behaviour, either tested or vaccinated or cured
@@ -157,6 +179,18 @@ class CovidCertificatesSettingsForm(SettingsForm):
         ),
     )
 
+    covid_certificates_record_proof = forms.BooleanField(
+        label=_("Record results"),
+        required=False,
+        help_text=_(
+            "With this option enabled, pretixSCAN will record that a certificate has been scanned. It will "
+            "only record which type of certificate has been scanned if you activate the respective options below. "
+            "If you disable this, pretixSCAN will ask for the certificate on every subsequent scans. "
+            "The question created in the system must not be required. "
+            "Disabling this is only supported on pretixSCAN 1.13.3 or newer."
+        ),
+    )
+
     covid_certificates_allow_vaccinated = forms.BooleanField(
         label=_("Allow vaccinated"),
         required=False,
@@ -204,7 +238,18 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.CheckboxInput(
             attrs={
                 "data-display-dependency": "#id_covid_certificates_allow_vaccinated",
+                "data-checkbox-dependency": "#id_covid_certificates_record_proof",
             }
+        ),
+    )
+
+    covid_certificates_allow_vaccinated_products = forms.MultipleChoiceField(
+        label=_("Accepted vaccine products"),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=VACCINATION_PRODUCTS,
+        help_text=_(
+            "Only supported on pretixSCAN 1.13.3 or newer."
         ),
     )
 
@@ -254,6 +299,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.CheckboxInput(
             attrs={
                 "data-display-dependency": "#id_covid_certificates_allow_cured",
+                "data-checkbox-dependency": "#id_covid_certificates_record_proof",
             }
         ),
     )
@@ -304,6 +350,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.CheckboxInput(
             attrs={
                 "data-display-dependency": "#id_covid_certificates_allow_tested_pcr",
+                "data-checkbox-dependency": "#id_covid_certificates_record_proof",
             }
         ),
     )
@@ -355,6 +402,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.CheckboxInput(
             attrs={
                 "data-display-dependency": "#id_covid_certificates_allow_tested_antigen_unknown",
+                "data-checkbox-dependency": "#id_covid_certificates_record_proof",
             }
         ),
     )
@@ -376,6 +424,7 @@ class CovidCertificatesSettingsForm(SettingsForm):
         widget=forms.CheckboxInput(
             attrs={
                 "data-display-dependency": "#id_covid_certificates_allow_other",
+                "data-checkbox-dependency": "#id_covid_certificates_record_proof",
             }
         ),
     )
@@ -432,7 +481,7 @@ class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
             defaults={
                 "type": Question.TYPE_TEXT,
                 "question": gettext("COVID Certificate Validation"),
-                "required": True,
+                "required": self.request.event.settings.covid_certificates_record_proof,
                 "help_text": gettext(
                     "This question has been created automatically by the Digital COVID Certificate Validation plugin. "
                     "Please do not change its internal identifier."
@@ -441,6 +490,9 @@ class CovidCertificatesSettings(EventSettingsViewMixin, EventSettingsFormView):
                 "hidden": True,
             },
         )
+        if not created:
+            question.required = self.request.event.settings.covid_certificates_record_proof
+            question.save(update_fields=['required'])
 
         messages.warning(
             request,

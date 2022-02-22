@@ -119,7 +119,9 @@ def periodic_task(sender, **kwargs):
 )
 def api_event_settings_fields(sender, **kwargs):
     return {
+        "covid_certificates_record_proof": serializers.BooleanField(required=False),
         "covid_certificates_allow_vaccinated": serializers.BooleanField(required=False),
+        "covid_certificates_allow_vaccinated_products": serializers.ListSerializer(child=serializers.CharField(), required=False),
         "covid_certificates_allow_vaccinated_min": serializers.IntegerField(
             required=False
         ),
@@ -171,7 +173,14 @@ def api_event_settings_fields(sender, **kwargs):
 
 
 # Rulenumbers correspond to the covpass-sdk rules and their libpretixui counterparts
+settings_hierarkey.add_default("covid_certificates_record_proof", True, bool)
 settings_hierarkey.add_default("covid_certificates_allow_vaccinated", False, bool)
+settings_hierarkey.add_default("covid_certificates_allow_vaccinated_products", [
+    "EU/1/20/1528",  # Comirnaty
+    "EU/1/20/1525",  # Janssen
+    "EU/1/20/1507",  # Moderna
+    "EU/1/21/1529",  # Vaxzevria
+], list)
 settings_hierarkey.add_default(
     "covid_certificates_allow_vaccinated_min", 14, int
 )  # VR_DE_003 / VR_003
