@@ -13,6 +13,8 @@ VACCINATION_PRODUCTS = (
     ("EU/1/20/1525", _("Janssen (Johnson & Johnson)")),
     ("EU/1/20/1507", _("Spikevax (Moderna)")),
     ("EU/1/21/1529", _("Vaxzevria (AstraZeneca)")),
+    ("EU/1/21/1618", _("Nuvaxovid (Novavax)")),
+    ("NVX-CoV2373", _("NVX-CoV2373 (old name of Nuvaxovid)")),
     # Preliminary names present in https://github.com/Digitaler-Impfnachweis/covpass-android/blob/20faa2bc04f4296d2a220d5676e964272ad3092b/covpass-sdk/src/main/assets/covpass-sdk/eu-value-sets.json
     ("Sputnik-V", _("Sputnik-V")),
     ("Sputnik-Light", _("Sputnik Light")),

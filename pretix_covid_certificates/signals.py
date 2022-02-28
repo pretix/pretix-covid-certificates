@@ -184,6 +184,8 @@ settings_hierarkey.add_default(
         "EU/1/20/1525",  # Janssen
         "EU/1/20/1507",  # Moderna
         "EU/1/21/1529",  # Vaxzevria
+        "EU/1/21/1618",  # Nuvaxovid
+        "NVX-CoV2373",   # Nuvaxovid (preliminary code)
     ],
     list,
 )
