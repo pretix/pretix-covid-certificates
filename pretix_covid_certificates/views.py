@@ -167,6 +167,75 @@ DEFAULT_COMBINATION_RULES = [
             "180 days ago, no test for cured attendees)"
         ),
     ),
+    (
+        # This is roughly what is required in the state of Berlin, Germany in March 2022
+        # see e.g.
+        # https://www.berlin.de/corona/massnahmen/oeffnungsmodelle-g-regeln/#headline_1_3
+        # Vierte SARS-CoV-2-Infektionsschutzmaßnahmenverordnung
+        # Vom 14. Dezember 2021
+        # In der Fassung der Siebten Verordnung zur Änderung der Vierten SARS-CoV-2-Infektionsschutzmaßnahmenverordnung
+        # Vom 1. März 2022
+        json.dumps(
+            {
+                "or": [
+                    # Cases without test
+
+                    # Boostered
+                    {"and": [{"var": "VACC"}, {"var": "VACC_isBooster"}]},
+
+                    # Fully vaccinated in the last 3 months
+                    {
+                        "and": [
+                            {"var": "VACC"},
+                            {
+                                "!=": [{"var": "VACC_occurence_days_since"}, None]
+                            },  # required because in json logic, None < X is true
+                            {"<=": [{"var": "VACC_occurence_days_since"}, 90]},
+                        ]
+                    },
+
+                    # Fully vaccinated and cured within the last 3 months
+                    {
+                        "and": [
+                            {"var": "VACC"},
+                            {"var": "CURED"},
+                            {
+                                "!=": [{"var": "CURED_firstResult_days_since"}, None]
+                            },  # required because in json logic, None < X is true
+                            {"<=": [{"var": "CURED_firstResult_days_since"}, 90]},
+                            {">=": [{"var": "CURED_firstResult_days_since"}, 28]},
+                        ]
+                    },
+
+                    # Cases with test
+
+                    # Vaccinated and tested
+                    {
+                        "and": [
+                            {"var": "VACC"},
+                            {
+                                "or": [
+                                    {"var": "TESTED_PCR"},
+                                    {"var": "TESTED_AG_UNKNOWN"},
+                                ]
+                            },
+                        ]
+                    },
+
+                    # Just cured does not get in
+
+                    # Students, pregnant people, just one vaccination
+                    {"var": "OTHER"},
+                ]
+            },
+            sort_keys=True,
+        ),
+        _(
+            "One vaccination certificate PLUS either one cured certificate (28-90 days old) OR "
+            "one test certificate (no test if vaccinated less 90 days ago, no test with booster "
+            "vaccination)"
+        ),
+    ),
 ]
 
 
