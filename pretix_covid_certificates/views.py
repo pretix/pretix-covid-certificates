@@ -179,10 +179,8 @@ DEFAULT_COMBINATION_RULES = [
             {
                 "or": [
                     # Cases without test
-
                     # Boostered
                     {"and": [{"var": "VACC"}, {"var": "VACC_isBooster"}]},
-
                     # Fully vaccinated in the last 3 months
                     {
                         "and": [
@@ -193,7 +191,6 @@ DEFAULT_COMBINATION_RULES = [
                             {"<=": [{"var": "VACC_occurence_days_since"}, 90]},
                         ]
                     },
-
                     # Fully vaccinated and cured within the last 3 months
                     {
                         "and": [
@@ -206,9 +203,7 @@ DEFAULT_COMBINATION_RULES = [
                             {">=": [{"var": "CURED_firstResult_days_since"}, 28]},
                         ]
                     },
-
                     # Cases with test
-
                     # Vaccinated and tested
                     {
                         "and": [
@@ -221,9 +216,7 @@ DEFAULT_COMBINATION_RULES = [
                             },
                         ]
                     },
-
                     # Just cured does not get in
-
                     # Students, pregnant people, just one vaccination
                     {"var": "OTHER"},
                 ]
