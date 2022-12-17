@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
 
 from pretix_covid_certificates.views import CovidCertificatesSettings
 
 urlpatterns = [
-    url(
-        r"^control/event/(?P<organizer>[^/]+)/(?P<event>[^/]+)/covidcerts/$",
+    path(
+        "control/event/<str:organizer>/<str:event>/covidcerts/",
         CovidCertificatesSettings.as_view(),
         name="settings",
     ),
