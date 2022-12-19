@@ -8,6 +8,7 @@ except ImportError:
 
 
 class PluginApp(PluginConfig):
+    default = True
     name = "pretix_covid_certificates"
     verbose_name = "Digital Covid Certificates"
 
