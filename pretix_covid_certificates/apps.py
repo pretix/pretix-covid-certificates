@@ -20,7 +20,7 @@ class PluginApp(PluginConfig):
             "PLUGIN WILL BE REMOVED AFTER 05/2024. This plugin allows to configure the validation of COVID test- and vaccination certificates using pretixSCAN for Android"
         )
         visible = True
-        featured = True
+        featured = False
         version = __version__
         category = "INTEGRATION"
         compatibility = "pretix>=3.6.0"
