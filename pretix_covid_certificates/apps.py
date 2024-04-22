@@ -17,7 +17,7 @@ class PluginApp(PluginConfig):
         name = gettext_lazy("Digital Covid Certificates")
         author = "Martin Gross"
         description = gettext_lazy(
-            "This plugin allows to configure the validation of COVID test- and vaccination certificates using pretixSCAN for Android"
+            "PLUGIN WILL BE REMOVED AFTER 05/2024. This plugin allows to configure the validation of COVID test- and vaccination certificates using pretixSCAN for Android"
         )
         visible = True
         featured = True
